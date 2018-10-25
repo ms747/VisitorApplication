@@ -25,7 +25,8 @@ class Home extends React.Component {
 	};
 
 	handleForm = e => {
-		e.preventDefault();
+    e.preventDefault();
+    console.log(this.state);
 	};
 
 	handleChange = e => {
