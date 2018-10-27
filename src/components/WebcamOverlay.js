@@ -25,7 +25,7 @@ class WebCamOverlay extends React.Component {
 				<a href="#home" onClick={this.props.hideOverlay}>
 					close
 				</a>
-				<Webcam height={200} width={200} ref={this.webref} />
+				<Webcam height={200} width={200} ref={this.webref} screenshotFormat="image/jpeg"/>
 				<button
 					onClick={() => {
             const src = this.webref.current.getScreenshot();

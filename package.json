@@ -5,8 +5,10 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "react": "16.5.2",
-    "react-dom": "16.5.2",
+    "axios": "^0.18.0",
+    "moment": "^2.22.2",
+    "react": "16.6",
+    "react-dom": "16.6",
     "react-router-dom": "4.3.1",
     "react-scripts": "2.0.3",
     "react-webcam": "^1.0.4",

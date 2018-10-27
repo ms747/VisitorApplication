@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import WebcamOverlay from "../components/WebcamOverlay";
 
 const Form = styled.form`
@@ -18,15 +19,28 @@ class Home extends React.Component {
 	state = {
 		name: "Mayur Shah",
 		img: "",
-		intime: `${new Date(Date.now())}`,
-		tomeet: "Ganesh Shah",
+		toMeet: "Ganesh Shah",
 		reason: "Application Demo",
 		overlay: false,
 	};
 
 	handleForm = e => {
-    e.preventDefault();
-    console.log(this.state);
+		e.preventDefault();
+		fetch(this.state.img)
+			.then(res => res.blob())
+			.then(async blob => {
+				const formData = new FormData();
+				formData.append("img", new File([blob], "img.jpeg"));
+				formData.append("name", this.state.name);
+				formData.append("toMeet", this.state.toMeet);
+				formData.append("reason", this.state.reason);
+				const response = await axios.post("http://localhost:7777/attendee", formData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				});
+				console.log(response);
+			});
 	};
 
 	handleChange = e => {
@@ -51,7 +65,7 @@ class Home extends React.Component {
 				<WebcamOverlay show={this.state.overlay} hideOverlay={this.hideOverlay} setSrc={this.setSrc} />
 				<h1>Home</h1>
 				<Link to="/about">Log</Link>
-				<Form onSubmit={this.handleForm}>
+				<Form onSubmit={this.handleForm} encType="multipart/form-data">
 					<fieldset>
 						<div>
 							<label htmlFor="name">
@@ -60,14 +74,16 @@ class Home extends React.Component {
 							</label>
 							<label htmlFor="picture">
 								<p>Picture</p>
-								<button onClick={this.showOverlay}>Take Picture</button>
+								<button type="button" onClick={this.showOverlay}>
+									Take Picture
+								</button>
 								<br />
 								{this.state.img ? <img src={this.state.img} alt="" name="picture" id="picture" /> : null}
 							</label>
 
-							<label htmlFor="tomeet">
+							<label htmlFor="toMeet">
 								<p>To Meet</p>
-								<input type="text" name="tomeet" id="tomeet" placeholder="To Meet" value={this.state.tomeet} onChange={this.handleChange} />
+								<input type="text" name="toMeet" id="toMeet" placeholder="To Meet" value={this.state.toMeet} onChange={this.handleChange} />
 							</label>
 							<label htmlFor="reason">
 								<p>Reason</p>
