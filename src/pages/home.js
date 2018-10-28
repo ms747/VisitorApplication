@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import WebcamOverlay from "../components/WebcamOverlay";
@@ -64,7 +63,6 @@ class Home extends React.Component {
 			<div>
 				<WebcamOverlay show={this.state.overlay} hideOverlay={this.hideOverlay} setSrc={this.setSrc} />
 				<h1>Home</h1>
-				<Link to="/about">Log</Link>
 				<Form onSubmit={this.handleForm} encType="multipart/form-data">
 					<fieldset>
 						<div>
