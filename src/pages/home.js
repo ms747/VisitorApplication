@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import Auth from "../components/auth";
 import WebcamOverlay from "../components/WebcamOverlay";
 
 const Form = styled.form`
@@ -60,39 +61,41 @@ class Home extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<WebcamOverlay show={this.state.overlay} hideOverlay={this.hideOverlay} setSrc={this.setSrc} />
-				<h1>Home</h1>
-				<Form onSubmit={this.handleForm} encType="multipart/form-data">
-					<fieldset>
-						<div>
-							<label htmlFor="name">
-								<p>Name</p>
-								<input type="text" name="name" id="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} />
-							</label>
-							<label htmlFor="picture">
-								<p>Picture</p>
-								<button type="button" onClick={this.showOverlay}>
-									Take Picture
-								</button>
-								<br />
-								{this.state.img ? <img src={this.state.img} alt="" name="picture" id="picture" /> : null}
-							</label>
+			<Auth {...this.props}>
+				<div>
+					<WebcamOverlay show={this.state.overlay} hideOverlay={this.hideOverlay} setSrc={this.setSrc} />
+					<h1>Home</h1>
+					<Form onSubmit={this.handleForm} encType="multipart/form-data">
+						<fieldset>
+							<div>
+								<label htmlFor="name">
+									<p>Name</p>
+									<input type="text" name="name" id="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} />
+								</label>
+								<label htmlFor="picture">
+									<p>Picture</p>
+									<button type="button" onClick={this.showOverlay}>
+										Take Picture
+									</button>
+									<br />
+									{this.state.img ? <img src={this.state.img} alt="" name="picture" id="picture" /> : null}
+								</label>
 
-							<label htmlFor="toMeet">
-								<p>To Meet</p>
-								<input type="text" name="toMeet" id="toMeet" placeholder="To Meet" value={this.state.toMeet} onChange={this.handleChange} />
-							</label>
-							<label htmlFor="reason">
-								<p>Reason</p>
-								<textarea type="text" name="reason" id="reason" placeholder="Reason" value={this.state.reason} onChange={this.handleChange} />
-							</label>
-							<br />
-							<input type="submit" value="Add" />
-						</div>
-					</fieldset>
-				</Form>
-			</div>
+								<label htmlFor="toMeet">
+									<p>To Meet</p>
+									<input type="text" name="toMeet" id="toMeet" placeholder="To Meet" value={this.state.toMeet} onChange={this.handleChange} />
+								</label>
+								<label htmlFor="reason">
+									<p>Reason</p>
+									<textarea type="text" name="reason" id="reason" placeholder="Reason" value={this.state.reason} onChange={this.handleChange} />
+								</label>
+								<br />
+								<input type="submit" value="Add" />
+							</div>
+						</fieldset>
+					</Form>
+				</div>
+			</Auth>
 		);
 	}
 }
