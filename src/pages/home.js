@@ -22,10 +22,18 @@ class Home extends React.Component {
 		toMeet: "Ganesh Shah",
 		reason: "Application Demo",
 		overlay: false,
+		idProof: "Adhaar Card",
+		idProofNumber: "",
+		hasVehicle: false,
+		vechicalNumber: "",
+		meetType: "personal",
 	};
 
 	handleForm = e => {
 		e.preventDefault();
+		if (!this.state.hasVehicle) {
+			this.setState({ vechicalNumber: "" });
+		}
 		fetch(this.state.img)
 			.then(res => res.blob())
 			.then(async blob => {
@@ -33,8 +41,14 @@ class Home extends React.Component {
 				formData.append("img", new File([blob], "img.jpeg"));
 				formData.append("name", this.state.name);
 				formData.append("toMeet", this.state.toMeet);
+				formData.append("idProof", this.state.idProof);
+				formData.append("idProofNumber", this.state.idProofNumber);
+				formData.append("hasVehicle", this.state.hasVehicle);
+				formData.append("vechicalNumber", this.state.vechicalNumber);
+				formData.append("meetType", this.state.meetType);
 				formData.append("reason", this.state.reason);
-				const response = await axios.post("http://localhost:7777/attendee", formData, {
+				console.log(formData);
+				const response = await axios.post("http://10.10.10.1:7777/attendee", formData, {
 					headers: {
 						"Content-Type": "multipart/form-data",
 					},
@@ -44,7 +58,15 @@ class Home extends React.Component {
 	};
 
 	handleChange = e => {
-		this.setState({ [e.target.name]: e.target.value });
+		if (e.target.name === "hasVehicle") {
+			if (e.target.value === "true") {
+				this.setState({ [e.target.name]: true });
+			} else {
+				this.setState({ [e.target.name]: false });
+			}
+		} else {
+			this.setState({ [e.target.name]: e.target.value });
+		}
 	};
 
 	showOverlay = e => {
@@ -72,6 +94,16 @@ class Home extends React.Component {
 									<p>Name</p>
 									<input type="text" name="name" id="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} />
 								</label>
+
+								<label htmlFor="meetType">
+									<p>Meet Type</p>
+									<select name="meetType" id="meetType" onChange={this.handleChange}>
+										<option value="personal">Personal</option>
+										<option value="official">Official</option>
+										<option value="material">Material Related</option>
+									</select>
+								</label>
+
 								<label htmlFor="picture">
 									<p>Picture</p>
 									<button type="button" onClick={this.showOverlay}>
@@ -85,11 +117,43 @@ class Home extends React.Component {
 									<p>To Meet</p>
 									<input type="text" name="toMeet" id="toMeet" placeholder="To Meet" value={this.state.toMeet} onChange={this.handleChange} />
 								</label>
+
+								<label htmlFor="idProof">
+									<p>ID Proof</p>
+									<select name="idProof" id="idProof" onChange={this.handleChange}>
+										<option value="Adhar Card">Adhar Card</option>
+										<option value="PAN Card">PAN Card</option>
+										<option value="Vechical Lisence">Vechical Lisence</option>
+									</select>
+								</label>
+
+								<label htmlFor="idProofNumber">
+									<p>ID Number</p>
+									<input type="text" name="idProofNumber" id="idProofNumber" placeholder="Enter ID Number" value={this.state.idProofNumber} onChange={this.handleChange} />
+								</label>
+
+								<label htmlFor="hasVehicle">
+									<p>Has Vehical</p>
+									<select name="hasVehicle" id="hasVehicle" onChange={this.handleChange}>
+										<option value={false}>No</option>
+										<option value={true}>Yes</option>
+									</select>
+								</label>
+
+								{this.state.hasVehicle ? (
+									<label htmlFor="vechicalNumber">
+										<p>Vechical Number</p>
+										<input type="text" name="vechicalNumber" id="vechicalNumber" placeholder="Enter Vechical Number" value={this.state.vechicalNumber} onChange={this.handleChange} />
+									</label>
+								) : null}
+
 								<label htmlFor="reason">
 									<p>Reason</p>
 									<textarea type="text" name="reason" id="reason" placeholder="Reason" value={this.state.reason} onChange={this.handleChange} />
 								</label>
+
 								<br />
+
 								<input type="submit" value="Add" />
 							</div>
 						</fieldset>

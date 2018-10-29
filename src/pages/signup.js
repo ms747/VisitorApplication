@@ -18,7 +18,7 @@ class Signup extends React.Component {
 	handleForm = async e => {
 		e.preventDefault();
 		axios
-			.post("http://localhost:7777/signup", {
+			.post("http://10.10.10.1:7777/signup", {
 				name: this.state.name,
 				email: this.state.email,
 				password: this.state.password,

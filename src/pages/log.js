@@ -18,7 +18,7 @@ class About extends React.Component {
 	};
 
 	async componentWillMount() {
-		let data = await axios("http://localhost:7777/attendee");
+		let data = await axios("http://10.10.10.1:7777/attendee");
 		data = await data.data;
 		this.setState({ items: data });
 	}

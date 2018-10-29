@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Form from "../components/styled/form";
+import AuthContext from "../context/auth-context";
 
 class Login extends React.Component {
 	state = {
@@ -10,20 +11,35 @@ class Login extends React.Component {
 		errorMsg: "",
 	};
 
+	static contextType = AuthContext;
+
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
+	async componentWillMount() {
+		try {
+			let data = await axios.get("http://10.10.10.1:7777/isauth", { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
+			if (data.status === 200) {
+				this.context.login();
+				this.props.history.push("/");
+			}
+		} catch (e) {
+			this.context.logout();
+		}
+	}
+
 	handleForm = e => {
 		e.preventDefault();
 		axios
-			.post("http://localhost:7777/login", {
+			.post("http://10.10.10.1:7777/login", {
 				email: this.state.email,
 				password: this.state.password,
 			})
 			.then(data => {
 				localStorage.setItem("token", data.data.token);
 				localStorage.setItem("id", data.data.id);
+				this.context.login();
 				this.props.history.push("/");
 			})
 			.catch(err => {
