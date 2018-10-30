@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
-import AuthContext from "../context/auth-context";
 import Nav from "../components/nav/nav";
 import Home from "../pages/home";
 import Log from "../pages/log";
@@ -12,7 +11,7 @@ import Logout from "../pages/logout";
 const Layout = props => {
 	return (
 		<Fragment>
-			<AuthContext.Consumer>{val => <Nav {...val} />}</AuthContext.Consumer>
+			<Nav/>
 			<h1 style={{ textAlign: "center" }}>Visitor Application</h1>
 			<Switch>
 				<Route path="/" exact component={Home} />
