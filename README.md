@@ -8,7 +8,7 @@
 * [ ] N.A
 * [ ] Rename Reason to Purpose
 * [ ] Entry by
-* [ ]Token No Allocation
+* [ ] Token No Allocation
 * [ ] Print Badge
 
 # Reports
