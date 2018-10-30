@@ -1,5 +1,7 @@
-# Fields
+# Todos
 
+## Fields
+---
 * [ ] Guest Organization
 * [ ] Select list for Host (host -> department)
 * [ ] ID Proof
@@ -11,12 +13,14 @@
 * [ ] Token No Allocation
 * [ ] Print Badge
 
-# Reports
+## Reports
+---
 * [ ] Day wise
 * [ ] Week wise
 * [ ] Month wise
 
-# Queries
+## Queries
+---
 * [ ] From Organization
 * [ ] To Department
 * [ ] To Person
