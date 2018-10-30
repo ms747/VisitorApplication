@@ -1,14 +1,18 @@
 import React from "react";
-import AuthContext from "../context/auth-context";
-
+import {connect} from "react-redux";
+import {actions} from "../store/actions/auth-actions";
 
 class Logout extends React.Component{
 
-  static contextType = AuthContext;
-
   componentWillMount(){
     localStorage.clear();
-    this.context.logout();
+    this.props.logout();
+    this.props.history.push("/login")
+  }
+
+  componentWillUnMount(){
+    localStorage.clear();
+    this.props.logout();
     this.props.history.push("/login")
   }
 
@@ -19,4 +23,19 @@ class Logout extends React.Component{
   }
 }
 
-export default Logout;
+function mapStateToProps(state){
+	return state;
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		login() {
+			dispatch(actions.login());
+		},
+		logout(){
+			dispatch(actions.logout());
+		}
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Logout);

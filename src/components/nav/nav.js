@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import AuthContext from "../../context/auth-context";
+import {connect} from "react-redux";
+import {actions} from "../../store/actions/auth-actions";
 
 const Navbar = styled.nav`
 	display: grid;
@@ -29,9 +30,8 @@ const Nav = props => {
 	return (
 		<Navbar>
 			<h1>Visitor App</h1>
-			<AuthContext.Consumer>
-				{value => {
-					return value.loggedIn ? (
+				{
+					 props.loggedIn ? (
 						<ul>
 							<li>
 								<Link to="/">Add Visitor</Link>
@@ -49,11 +49,25 @@ const Nav = props => {
 								<Link to="/login">Login</Link>
 							</li>
 						</ul>
-					);
-				}}
-			</AuthContext.Consumer>
+					)
+				}
 		</Navbar>
 	);
 };
 
-export default Nav;
+function mapStateToProps(state){
+	return state;
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		login() {
+			dispatch(actions.login());
+		},
+		logout(){
+			dispatch(actions.logout());
+		}
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Nav);

@@ -1,43 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import "./styles.css";
 import Layout from "./layout/layout";
-import AuthContext from "./context/auth-context";
-import axios from "axios";
+import store from "./store/store";
 
-window.onunload = function(){
+window.onunload = function() {
 	localStorage.clear();
-}
-
-const state = {
-	loggedIn: false,
-	logout() {
-		this.loggedIn = false;
-	},
-	login() {
-		this.loggedIn = true;
-	},
 };
 
 class App extends React.Component {
-	static contextType = AuthContext;
-	state={
-
-	}
-	async componentWillMount() {
-		try {
-			let data = await axios.get("http://10.10.10.1:7777/isauth", { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
-			if (data.status === 200) {
-				this.context.login();
-				this.setState({state:this.state});
-				this.props.history.push("/");
-			}
-		} catch (e) {
-			this.context.logout();
-		}
-	}
-
 	render() {
 		return (
 			<BrowserRouter>
@@ -49,8 +22,8 @@ class App extends React.Component {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
-	<AuthContext.Provider value={state}>
+	<Provider store={store}>
 		<App />
-	</AuthContext.Provider>,
+	</Provider>,
 	rootElement
 );

@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
+import {connect} from "react-redux";
 import Form from "../components/styled/form";
-import AuthContext from "../context/auth-context";
+import {actions} from "../store/actions/auth-actions";
 
 class Login extends React.Component {
 	state = {
@@ -11,7 +12,6 @@ class Login extends React.Component {
 		errorMsg: "",
 	};
 
-	static contextType = AuthContext;
 
 	handleChange = e => {
 		this.setState({ [e.target.name]: e.target.value });
@@ -21,13 +21,16 @@ class Login extends React.Component {
 		try {
 			let data = await axios.get("http://10.10.10.1:7777/isauth", { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
 			if (data.status === 200) {
-				this.context.login();
+				this.props.login();
 				this.props.history.push("/");
 			}
 		} catch (e) {
-			this.context.logout();
+			this.props.logout();
 		}
 	}
+
+	
+
 
 	handleForm = e => {
 		e.preventDefault();
@@ -39,7 +42,7 @@ class Login extends React.Component {
 			.then(data => {
 				localStorage.setItem("token", data.data.token);
 				localStorage.setItem("id", data.data.id);
-				this.context.login();
+				this.props.login();
 				this.props.history.push("/");
 			})
 			.catch(err => {
@@ -52,6 +55,9 @@ class Login extends React.Component {
 				}
 			});
 	};
+
+
+
 
 	render() {
 		return (
@@ -79,4 +85,19 @@ class Login extends React.Component {
 	}
 }
 
-export default Login;
+function mapStateToProps(state){
+	return state;
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		login() {
+			dispatch(actions.login());
+		},
+		logout(){
+			dispatch(actions.logout());
+		}
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
