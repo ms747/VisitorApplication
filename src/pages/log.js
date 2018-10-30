@@ -2,8 +2,11 @@ import React, { Suspense, lazy } from "react";
 import Head from "../components/table/head";
 import axios from "axios";
 import styled from "styled-components";
+import { CancelToken } from "axios";
 import Auth from "../components/auth";
+
 const Body = lazy(() => import("../components/table/body"));
+const source = CancelToken.source();
 
 const Table = styled.table`
 	width: 100%;
@@ -13,15 +16,33 @@ const Table = styled.table`
 `;
 
 class About extends React.Component {
+	constructor(props) {
+		super(props);
+		this._isMounted = false;
+	}
 	state = {
 		items: [],
+		ismounted: false,
 	};
 
-	async componentWillMount() {
-		let data = await axios("http://10.10.10.1:7777/attendee");
-		data = await data.data;
-		this.setState({ items: data });
+	getData = () => {
+		this.setState({ ismounted: true }, async () => {
+			let data = await axios("http://10.10.10.1:7777/attendee", { cancelToken: source.token });
+			data = await data.data;
+			this.setState({ items: data });
+		});
+	};
+
+	componentDidMount() {
+		this.getData();
 	}
+
+	componentWillUnmount() {
+		// const x = source.cancel("Component Unmounted");
+		this.setState({ ismounted: false });
+	}
+
+	componentDid;
 
 	render() {
 		return (

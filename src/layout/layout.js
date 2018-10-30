@@ -7,11 +7,10 @@ import Login from "../pages/login";
 import Signup from "../pages/signup";
 import Logout from "../pages/logout";
 
-
 const Layout = props => {
 	return (
 		<Fragment>
-			<Nav/>
+			<Nav />
 			<h1 style={{ textAlign: "center" }}>Visitor Application</h1>
 			<Switch>
 				<Route path="/" exact component={Home} />

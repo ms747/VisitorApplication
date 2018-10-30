@@ -1,23 +1,15 @@
 import React, { Fragment } from "react";
-import axios from "axios";
-import {connect} from "react-redux";
-import {actions} from "../store/actions/auth-actions";
+import { connect } from "react-redux";
+import { actions } from "../store/actions/auth-actions";
 
 class Auth extends React.Component {
-	async componentWillMount() {
-		try {
-			let data = await axios.get("http://10.10.10.1:7777/isauth", { headers: { Authorization: "Bearer " + localStorage.getItem("token") } });
-			if (data.status === 200) {
-				this.props.login();
-			}
-		} catch (e) {
+	componentWillMount() {
+		if (localStorage.getItem("token") === this.props.token) {
+			this.props.login();
+		} else {
 			this.props.logout();
 			this.props.history.push("/login");
 		}
-	}
-
-	componentWillUnmount() {
-		this.props.login()
 	}
 
 	render() {
@@ -25,19 +17,25 @@ class Auth extends React.Component {
 	}
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
 	return state;
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
 	return {
 		login() {
 			dispatch(actions.login());
 		},
-		logout(){
+		logout() {
 			dispatch(actions.logout());
-		}
-	}
+		},
+		settoken(token) {
+			dispatch(actions.setToken(token));
+		},
+	};
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Auth);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Auth);

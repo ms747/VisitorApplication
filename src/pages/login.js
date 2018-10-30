@@ -42,6 +42,7 @@ class Login extends React.Component {
 			.then(data => {
 				localStorage.setItem("token", data.data.token);
 				localStorage.setItem("id", data.data.id);
+				this.props.setToken(data.data.token);
 				this.props.login();
 				this.props.history.push("/");
 			})
@@ -96,6 +97,9 @@ function mapDispatchToProps(dispatch){
 		},
 		logout(){
 			dispatch(actions.logout());
+		},
+		setToken(token){
+			dispatch(actions.setToken(token));
 		}
 	}
 }

@@ -1,25 +1,24 @@
-A. Field Add
-  1. Guest Organization
-  2. 
+# Fields
 
-B. Select list for Host (host -> department)
-C. ID Proof
-  1. Others
-  2. Special Guests
-  3. N.A
-D. Rename Reason to Purpose
-E. Entry by
-F. Token No Allocate
-G. Print Badge
+* [ ] Guest Organization
+* [ ] Select list for Host (host -> department)
+* [ ] ID Proof
+* [ ] Others
+* [ ] Special Guests
+* [ ] N.A
+* [ ] Rename Reason to Purpose
+* [ ] Entry by
+* [ ]Token No Allocation
+* [ ] Print Badge
 
-H. Reports
-  1. Day wise
-  2. Week wise
-  3. Month wise
+# Reports
+* [ ] Day wise
+* [ ] Week wise
+* [ ] Month wise
 
-Queries
-  From Organization
-  To Department
-  To Person
-  Meet Type
-  Entry By
+# Queries
+* [ ] From Organization
+* [ ] To Department
+* [ ] To Person
+* [ ] Meet Type
+* [ ] Entry By

@@ -1,18 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
 import {actions} from "../store/actions/auth-actions";
-
 class Logout extends React.Component{
 
   componentWillMount(){
     localStorage.clear();
+    this.props.setToken("");
     this.props.logout();
     this.props.history.push("/login")
   }
 
   componentWillUnMount(){
-    localStorage.clear();
-    this.props.logout();
     this.props.history.push("/login")
   }
 
@@ -34,7 +32,10 @@ function mapDispatchToProps(dispatch){
 		},
 		logout(){
 			dispatch(actions.logout());
-		}
+    },
+    setToken(token){
+      dispatch(actions.setToken(token));
+    }
 	}
 }
 
