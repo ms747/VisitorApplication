@@ -1,4 +1,18 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+@import "./bootstrap.min.css";
+
+a {
+	color: white;
+}
+
+a:hover {
+	color: gray;
+}
+
+input,textarea {
+	border: 1px solid #ced4da !important;
+}
+
+select {
+	border: 1px solid #ced4da !important;
+	padding: 0.75rem 2rem !important;
 }

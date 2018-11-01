@@ -4,12 +4,12 @@
 ---
 * [ ] Guest Organization
 * [ ] Select list for Host (host -> department)
-* [ ] ID Proof
-* [ ] Others
-* [ ] Special Guests
-* [ ] N.A
-* [ ] Rename Reason to Purpose
-* [ ] Entry by
+* [X] ID Proof
+* [X] Others
+* [X] Special Guests
+* [X] N.A
+* [X] Rename Reason to Purpose
+* [X] Entry by
 * [ ] Token No Allocation
 * [ ] Print Badge
 

@@ -1,6 +1,7 @@
 export const LOGIN = "AUTH_LOGIN";
 export const LOGOUT = "AUTH_LOGOUT";
 export const SET_TOKEN = "AUTH_SET_TOKEN";
+export const SET_ORGANIZATION = "SET_ORGANIZATION";
 
 export const actions = {
 	login() {
@@ -19,4 +20,10 @@ export const actions = {
 			token,
 		};
 	},
+	addOrg(org){
+		return {
+			type: SET_ORGANIZATION,
+			org
+		}
+	}
 };

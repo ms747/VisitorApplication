@@ -11,17 +11,18 @@ const Layout = props => {
 	return (
 		<Fragment>
 			<Nav />
-			<h1 style={{ textAlign: "center" }}>Visitor Application</h1>
-			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/log" exact component={Log} />
-				<Route path="/login" exact component={Login} />
-				<Route path="/signup" exact component={Signup} />
-				<Route path="/logout" exact component={Logout} />
-				<Route path="*">
-					<h1>404 Not Found</h1>
-				</Route>
-			</Switch>
+			<div className="container">
+				<Switch>
+					<Route path="/" exact component={Home} />
+					<Route path="/log" exact component={Log} />
+					<Route path="/login" exact component={Login} />
+					<Route path="/signup" exact component={Signup} />
+					<Route path="/logout" exact component={Logout} />
+					<Route path="*">
+						<h1>404 Not Found</h1>
+					</Route>
+				</Switch>
+			</div>
 		</Fragment>
 	);
 };

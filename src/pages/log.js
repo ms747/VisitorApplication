@@ -1,19 +1,9 @@
 import React, { Suspense, lazy } from "react";
 import Head from "../components/table/head";
 import axios from "axios";
-import styled from "styled-components";
-import { CancelToken } from "axios";
 import Auth from "../components/auth";
 
 const Body = lazy(() => import("../components/table/body"));
-const source = CancelToken.source();
-
-const Table = styled.table`
-	width: 100%;
-	th {
-		border: 2px solid black;
-	}
-`;
 
 class About extends React.Component {
 	constructor(props) {
@@ -27,7 +17,7 @@ class About extends React.Component {
 
 	getData = () => {
 		this.setState({ ismounted: true }, async () => {
-			let data = await axios("http://10.10.10.1:7777/attendee", { cancelToken: source.token });
+			let data = await axios("http://10.10.10.1:7777/attendee");
 			data = await data.data;
 			this.setState({ items: data });
 		});
@@ -38,7 +28,6 @@ class About extends React.Component {
 	}
 
 	componentWillUnmount() {
-		// const x = source.cancel("Component Unmounted");
 		this.setState({ ismounted: false });
 	}
 
@@ -48,13 +37,13 @@ class About extends React.Component {
 		return (
 			<Auth {...this.props}>
 				<div>
-					<h1>Guest Visit Records</h1>
+					<h1 style={{ margin: "1rem 0" }}>Guest Visits Records</h1>
 					<React.Fragment>
 						<Suspense fallback={<h1>Loading...</h1>}>
-							<Table width="100%" border="1">
+							<table className="table table-dark" width="100%">
 								<Head />
 								<Body items={this.state.items} />
-							</Table>
+							</table>
 						</Suspense>
 					</React.Fragment>
 				</div>
